@@ -12,7 +12,7 @@ data class DopaMeTypography (
         fontFamily = pretendard,
         fontWeight = FontWeight.Medium,
         fontSize = 18.sp,
-        lineHeight = 8.sp,
+        lineHeight = 26.sp,
         platformStyle = PlatformTextStyle(
             includeFontPadding = false
         ),

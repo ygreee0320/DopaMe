@@ -23,6 +23,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.dopame.R
 import com.example.dopame.core.designsystem.DopaMeTheme
+import com.example.dopame.screens.utils.nextButton
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
@@ -65,19 +66,11 @@ fun AddLinkScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            Column {
-                Text(
-                    text = "오늘 본 유튜브 shorts ${randomNumber}번째 영상",
-                    color = Color.White,
-                    style = DopaMeTheme.typography.h1Medium
-                )
-
-                Text(
-                    text = "URL 붙여넣기!",
-                    color = Color.White,
-                    style = DopaMeTheme.typography.h1Medium
-                )
-            }
+            Text(
+                text = "오늘 본 유튜브 shorts ${randomNumber}번째 영상\nURL 붙여넣기!",
+                color = Color.White,
+                style = DopaMeTheme.typography.h1Medium
+            )
 
             Spacer(modifier = Modifier.height(40.dp))
 
@@ -104,7 +97,7 @@ fun AddLinkScreen(navController: NavController) {
                         Text(
                             text = "url 붙여넣기",
                             style = LocalTextStyle.current.copy(
-                                color = DopaMeTheme.colors.gray50,
+                                color = DopaMeTheme.colors.gray60,
                                 fontSize = 18.sp,
                                 fontFamily = FontFamily.Default,
                                 fontWeight = FontWeight.Medium
@@ -134,30 +127,12 @@ fun AddLinkScreen(navController: NavController) {
             }
         }
 
-        Column(
-            modifier = Modifier
-                .padding(horizontal = 15.dp, vertical = 20.dp)
-        ) {
-            Button(
-                onClick = { navController.navigate("miningStep2") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(64.dp),
-                shape = RoundedCornerShape(10.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = if (nextEnabled) DopaMeTheme.colors.primary60 else DopaMeTheme.colors.gray30
-                ),
-                enabled = url.isNotEmpty(),
-            ) {
-                Text(
-                    text = "다음",
-                    fontSize = 18.sp,
-                    color = if (nextEnabled) Color.Black else DopaMeTheme.colors.gray60,
-                    fontFamily = FontFamily.Default,
-                    fontWeight = FontWeight.Medium
-                )
-            }
-        }
+        nextButton(
+            navController = navController,
+            nextRoute = "miningStep2",
+            nextEnabled = nextEnabled,
+            buttonText = "다음"
+        )
     }
 }
 
