@@ -22,6 +22,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.dopame.R
 import com.example.dopame.core.designsystem.DopaMeTheme
+import com.example.dopame.data.model.MiningData
 import com.example.dopame.screens.utils.nextButton
 
 @Composable
@@ -140,25 +141,23 @@ private fun GridItemCard(data: MiningData) {
     }
 }
 
-data class MiningData (
-    val id : Int,
-    val title : String,
-)
-
 class MiningRepository {
     fun getAllData(): List<MiningData> {
         return listOf(
             MiningData(
                 id = 0,
-                title = "배달앱 무료 배달로 전쟁한다"
+                title = "배달앱 무료 배달로 전쟁한다",
+                hashTag = listOf("음식", "배달")
             ),
             MiningData(
                 id = 1,
-                title = "강아지 영상"
+                title = "강아지 영상",
+                hashTag = listOf("강아지", "동물")
             ),
             MiningData(
                 id = 2,
-                title = "강아지 영상2"
+                title = "강아지 영상2",
+                hashTag = listOf("강아지", "동물")
             )
         )
     }
