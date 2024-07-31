@@ -1,4 +1,4 @@
-package com.example.dopame.data.network.adapter
+package com.example.dopame.network.adapter
 
 sealed interface ApiResult<out T> {
     data class Success<T>(val data: T) : ApiResult<T>
