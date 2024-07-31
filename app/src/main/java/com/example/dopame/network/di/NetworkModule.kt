@@ -1,9 +1,9 @@
-package com.example.dopame.data.di
+package com.example.dopame.network.di
 
 import android.content.Context
-import com.example.dopame.data.network.adapter.ApiResultCallAdapterFactory
-import com.example.dopame.data.network.interceptor.AuthInterceptor
-import com.example.dopame.data.network.service.MiningService
+import com.example.dopame.network.adapter.ApiResultCallAdapterFactory
+import com.example.dopame.network.interceptor.AuthInterceptor
+import com.example.dopame.network.service.MiningService
 import com.example.dopame.data.repository.MiningRepository
 import com.example.dopame.data.repository.MiningRepositoryImpl
 import dagger.Binds

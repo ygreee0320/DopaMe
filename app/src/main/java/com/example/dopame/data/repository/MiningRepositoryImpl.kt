@@ -1,8 +1,8 @@
 package com.example.dopame.data.repository
 
 import com.example.dopame.data.model.MiningData
-import com.example.dopame.data.network.adapter.ApiResult
-import com.example.dopame.data.network.service.MiningService
+import com.example.dopame.network.adapter.ApiResult
+import com.example.dopame.network.service.MiningService
 import javax.inject.Inject
 
 class MiningRepositoryImpl @Inject constructor(

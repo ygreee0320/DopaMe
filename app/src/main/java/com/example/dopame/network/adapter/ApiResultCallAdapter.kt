@@ -1,4 +1,4 @@
-package com.example.dopame.data.network.adapter
+package com.example.dopame.network.adapter
 
 import okhttp3.Request
 import okio.IOException
