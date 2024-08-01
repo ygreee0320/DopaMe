@@ -32,6 +32,10 @@ object NetworkModule {
     ): OkHttpClient {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
             .setLevel(HttpLoggingInterceptor.Level.BODY)
+        
+        val client = OkHttpClient.Builder().run {
+            
+        }
         return OkHttpClient.Builder()
             .addInterceptor(tokenInterceptor)
             .addInterceptor(httpLoggingInterceptor)
@@ -61,6 +65,6 @@ object NetworkModule {
     abstract class RepositoryModule {
         @Singleton
         @Binds
-        abstract fun providesDoctorRepository(doctorRepositoryImpl: MiningRepositoryImpl): MiningRepository
+        abstract fun providesMiningRepository(miningRepositoryImpl: MiningRepositoryImpl): MiningRepository
     }
 }

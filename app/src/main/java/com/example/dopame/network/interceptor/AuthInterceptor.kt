@@ -1,28 +1,43 @@
 package com.example.dopame.network.interceptor
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import com.example.dopame.core.util.Constants.ACCESS_TOKEN
-import com.example.dopame.core.util.Constants.REFRESH_TOKEN
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
 
 class AuthInterceptor @Inject constructor(
-    private val datastore: DataStore<Preferences>
-) {
-    fun getAccessToken(): Flow<String?> {
-        return datastore.data.map { prefs ->
-            prefs[ACCESS_TOKEN]
+    private val tokenManager: TokenManager,
+    @ApplicationContext private val context: Context
+): Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val accessToken = runBlocking { tokenManager.getAccessToken().first() } ?: ""
+        val refreshToken = runBlocking { tokenManager.getRefreshToken().first() } ?: ""
+        val originalRequest = chain.request()
+        val authenticationRequest = accessToken?.let {
+            originalRequest.newBuilder()
+                .addHeader("AUTHORIZATION", "Bearer $accessToken")
+                .build()
         }
-    }
-
-    fun getRefreshToken(): Flow<String?> {
-        return datastore.data.map { prefs ->
-            prefs[REFRESH_TOKEN]
+        val response = authenticationRequest?.let { chain.proceed(it) }
+        if(response?.code == 401 && refreshToken.isNotEmpty()) {
+            val newToken = runBlocking {  }
+            /*if(newToken is ApiResult.Success) {
+                val newAccessToken = newToken.data.data.accessToken
+                val refreshToken = newToken.data.data.refreshToken
+                runBlocking {  }
+                response.close()
+                val newAuthenticationRequest = originalRequest.newBuilder()
+                    .header(AUTHORIZATION, "Bearer $newAccessToken")
+                    .build()
+                return chain.proceed(newAuthenticationRequest)
+            } else {
+                //runBlocking { tokenManager.deleteAccessToken() }
+            }*/
         }
+        return response!!
     }
 
 
